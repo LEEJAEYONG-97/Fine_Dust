@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}
+    예측 모델
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">예측 모델 페이지</h1>
+
+    <!-- 예측 데이터를 입력받는 폼 -->
+    <form class="form-control" id="predictionForm" method="POST">
+        <label for="date">날짜:</label>
+        <input class="datatable-input" type="date" id="date" name="date" required><br><br>
+
+        <label for="pm25_china_df">PM2.5 (중국):</label>
+        <input class="datatable-input" type="number" id="pm25_china_df" name="pm25_china_df" step="any" required><br><br>
+
+        <label for="pm10_china_df">PM10 (중국):</label>
+        <input class="datatable-input" type="number" id="pm10_china_df" name="pm10_china_df" step="any" required><br><br>
+
+        <label for="o3_china_df">O3 (중국):</label>
+        <input class="datatable-input" type="number" id="o3_china_df" name="o3_china_df" step="any" required><br><br>
+
+        <label for="no2_china_df">NO2 (중국):</label>
+        <input class="datatable-input" type="number" id="no2_china_df" name="no2_china_df" step="any" required><br><br>
+
+        <label for="so2_china_df">SO2 (중국):</label>
+        <input class="datatable-input" type="number" id="so2_china_df" name="so2_china_df" step="any" required><br><br>
+
+        <label for="co_china_df">CO (중국):</label>
+        <input class="datatable-input" type="number" id="co_china_df" name="co_china_df" step="any" required><br><br>
+
+        <label for="wind_speed_mps">풍속 (m/s):</label>
+        <input class="datatable-input" type="number" id="wind_speed_mps" name="wind_speed_mps" step="any" required><br><br>
+
+        <label for="humidity_percent">습도 (%):</label>
+        <input class="datatable-input" type="number" id="humidity_percent" name="humidity_percent" step="any" required><br><br>
+
+        <!-- 폼 제출 버튼 -->
+        <input class="datatable-input" type="submit" value="예측하기">
+    </form>
+
+    <!-- 예측 결과를 보여주는 카드 -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            LSTM 모델 예측 결과
+        </div>
+        <div class="card-body">
+            <table class="datatable-table" id="resultTable">
+                <thead>
+                    <tr>
+                        <th>PM2.5 (한국)</th>
+                        <th>PM10 (한국)</th>
+                        <th>O3 (한국)</th>
+                        <th>NO2 (한국)</th>
+                        <th>SO2 (한국)</th>
+                        <th>CO (한국)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="pred_pm25_kor_df">--</td>
+                        <td id="pred_pm10_kor_df">--</td>
+                        <td id="pred_o3_kor_df">--</td>
+                        <td id="pred_no2_kor_df">--</td>
+                        <td id="pred_so2_kor_df">--</td>
+                        <td id="pred_co_kor_df">--</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 폼 제출 처리
+        document.getElementById('predictionForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // 기본 폼 제출 방지
+
+            // 폼 데이터 수집
+            const formData = new FormData(event.target);
+
+            // 서버로 POST 요청 보내기
+            const response = await fetch('/predict-model/', {
+                method: 'POST',  // POST 요청으로 설정
+                body: formData,
+            });
+
+            // 서버로부터 받은 예측 결과 처리
+            const result = await response.json();
+
+            // 예측 결과가 있을 경우 테이블 업데이트
+            if (result.predictions && result.predictions.length > 0) {
+                const predictions = result.predictions;
+
+                // 예측 결과를 소수점 2자리로 포맷하여 테이블에 표시
+                document.getElementById('pred_pm25_kor_df').innerText = `${predictions[0].toFixed(2)} µg/m³`;
+                document.getElementById('pred_pm10_kor_df').innerText = `${predictions[1].toFixed(2)} µg/m³`;
+                document.getElementById('pred_o3_kor_df').innerText = `${predictions[2].toFixed(2)} µg/m³`;
+                document.getElementById('pred_no2_kor_df').innerText = `${predictions[3].toFixed(2)} µg/m³`;
+                document.getElementById('pred_so2_kor_df').innerText = `${predictions[4].toFixed(2)} µg/m³`;
+                document.getElementById('pred_co_kor_df').innerText = `${predictions[5].toFixed(2)} µg/m³`;
+            } else {
+                // 예측 결과가 없을 경우 기본값 표시
+                document.getElementById('pred_pm25_kor_df').innerText = 'N/A';
+                document.getElementById('pred_pm10_kor_df').innerText = 'N/A';
+                document.getElementById('pred_o3_kor_df').innerText = 'N/A';
+                document.getElementById('pred_no2_kor_df').innerText = 'N/A';
+                document.getElementById('pred_so2_kor_df').innerText = 'N/A';
+                document.getElementById('pred_co_kor_df').innerText = 'N/A';
+            }
+        });
+    </script>
+</div>
+{% endblock %}
