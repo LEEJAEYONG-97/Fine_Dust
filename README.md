@@ -54,19 +54,43 @@ Humidity shows a negative correlation
 
 ![image4](https://github.com/LEEJAEYONG-97/portfolio/blob/341803756a1e4620a4ff964c1f0b7a25d9f3b212/app/static/assets/img/eda.png)
 ![image5](https://github.com/LEEJAEYONG-97/portfolio/blob/341803756a1e4620a4ff964c1f0b7a25d9f3b212/app/static/assets/img/eda2.png)
+
+
 It can be observed that fine dust levels are high in winter, with strong wind speeds and low humidity.
 
 # Models
 
-1. **Korean BERT Model**: A pre-trained language model that demonstrates very strong performance in the field of Natural Language Processing (NLP). Developed by Google, it excels in understanding context.
-2. **LDA Model**: Models each topic as a probability distribution of words. It is used to uncover hidden topics in text data. Specific topics are understood as sets of words that have a high probability of occurrence together.
-It employs non-parametric Bayesian methods, such as Gibbs sampling, to infer topics. The process involves iterative sampling while considering the number of topics and words.
+### LSTM (Long Short-Term Memory)
+LSTM is a type of recurrent neural network (RNN) designed to model time series data and sequences. It addresses the problem of vanishing gradients in standard RNNs by using memory cells that can maintain information over long periods. This makes LSTM particularly effective for tasks like speech recognition, language modeling, and time series forecasting, where past information is crucial for making predictions.
+
+### ARIMA (AutoRegressive Integrated Moving Average)
+ARIMA is a popular statistical model used for forecasting time series data. It combines three components: 
+- **AutoRegressive (AR)**: uses the relationship between an observation and a number of lagged observations.
+- **Integrated (I)**: involves differencing the data to make it stationary (constant mean and variance).
+- **Moving Average (MA)**: uses the dependency between an observation and a residual error from a moving average model.
+
+ARIMA is well-suited for univariate time series forecasting, particularly when the data shows trends or seasonality.
+
+### Kalman Filter
+The Kalman filter is an algorithm that uses a series of measurements observed over time, containing statistical noise and other inaccuracies, to estimate unknown variables. It operates in a two-step process: 
+1. **Prediction**: Estimates the current state based on the previous state.
+2. **Update**: Adjusts the estimates based on the new measurement.
+
+Kalman filters are widely used in control systems, navigation, and time series analysis, providing a way to infer the hidden state of a system over time.
 
 
+# Model Evaluation
+|Performance comparison of the LSTM multivariate time series model|
+|------|---|---|
+||mse|R^2SCORE|
+|LSTM|0.009|0.437|
 
-# Analysis of Tourist Ratings and Reviews
+Comparison of MSE and R² Score among the three models:
 
-Most well-known tourist attractions have high ratings.
+- MSE: LSTM > Kalman Filter > ARIMA  
+- R² Score: Kalman Filter > LSTM > ARIMA  
+
+Although LSTM has a higher MSE, it is best suited for multivariate factors and complex models, demonstrating the best overall performance.
 
 
 
