@@ -25,6 +25,7 @@ Regions:
 * Korea: Seoul, Busan, Daegu, Daejeon, Gwangju, Ulsan, and 20 other cities.
 
 Source: AQICN , Weather Data Open Portal
+
 Data common collection period: January 2013 to September 2024
 
 # Data Preprocessing Steps
