@@ -82,19 +82,26 @@ Kalman filters are widely used in control systems, navigation, and time series a
 
 # Model Evaluation
 Performance comparison of the LSTM multivariate time series model
+
 ||mse|R^2SCORE|
 |:---:|:---:|:---:|
 |LSTM|0.009|0.437|
+
 Performance comparison of the ARIMA time series model
+
 ||mse|R^2SCORE|
 |:---:|:---:|:---:|
 |pm25|109.006|-133.524|
 |pm10|12.975|-4.308|
+
 Performance comparison of the Kalman Filter model
+
 ||mse|R^2SCORE|
 |:---:|:---:|:---:|
 |pm25|63.4558|0.9128|
 |pm10|31.0998|0.9033|
+
+
 Comparison of MSE and R² Score among the three models:
 
 - MSE: LSTM > Kalman Filter > ARIMA  
