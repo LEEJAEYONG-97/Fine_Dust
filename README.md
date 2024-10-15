@@ -37,9 +37,18 @@ Data common collection period: January 2013 to September 2024
 
 Correlation analysis between Chinese weather factors and Korean weather factors
 A result of 0.4 or higher indicates a correlation, leading to the final variable selection
+
+
 ![image2](https://github.com/LEEJAEYONG-97/portfolio/blob/341803756a1e4620a4ff964c1f0b7a25d9f3b212/app/static/assets/img/heatmap2.png)
+
+
 Humidity shows a negative correlation
+
+
+
 ![image3](https://github.com/LEEJAEYONG-97/portfolio/blob/341803756a1e4620a4ff964c1f0b7a25d9f3b212/app/static/assets/img/heatmap.png)
+
+
 # EDA
 **Exploratory Data Analysis (EDA)**: Comparison of annual average, monthly average, and seasonal fine dust levels between China and Korea, along with visualization of monthly average humidity and wind speed in Korea. using Pandas, Seaborn, and Matplotlib.
 
